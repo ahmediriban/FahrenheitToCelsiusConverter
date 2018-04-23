@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FahrenheitToCelsiusConverter</title>
+    <!--<link rel="stylesheet" href="css/main.css" />-->
+    <link rel="stylesheet" href="l.css"/>
+</head>
+<body>
+<div class="converter_card" >
+    <div class="header-content">
+        <h1>Fahrenheit-Celsius Converter</h1>
+    </div>
+    <div class="content">
+            <label class="labelInfo">Converter format</label>
+            <select id="option-" class="selection" onchange="changeOptions(this)">
+                <option name="Celsius-Fahrenheit" value="0" selected>Celsius to Fahrenheit</option>
+                <option name="Fahrenheit-Celsius" value="1">Fahrenheit to Celsius</option>
+            </select>
+            <br>
+            <label class="labelInfo">Value</label>
+            <input type="number" class="input-io" name="value" id="valueNum">
+            <p class="private" id="s1">C</p>
+            <br>
+            <button onclick="convertFunc()" >Convert</button>
+    </div>
+    <div class="result">
+        <label class="labelInfo">Output</label>
+        <input id="output-" disabled>
+        <p class="private close" id="s2">F</p>
+        <br>
+    </div>
+</div>
+<script>
+    var io;
+    document.getElementById('valueNum').value=null;
+    document.getElementById('output-').value =null;
+    function changeOptions(element)
+    {
+        io= parseInt(element[element.selectedIndex].value);
+        if(io === 0) {
+            document.getElementById('s1').innerHTML = "C";
+            document.getElementById('s2').innerHTML = "F";
+        }
+        if(io === 1){
+            document.getElementById('s1').innerHTML="F";
+            document.getElementById('s2').innerHTML="C";
+        }
+    }
+    changeOptions(document.getElementById("option-"));
+    function convertFunc()
+    {
+        var outputValue="";
+        var value = parseFloat(document.getElementById('valueNum').value); // here it parse into float number
+        // to check if the value is really a number
+        try {
+            if(isNaN(value)) throw "Invalid input";
+            if (io === 1) {
+                outputValue = (value - 32) * (5 / 9);
+                document.getElementById('output-').value = outputValue;
+            }
+
+            if (io === 0) {
+                outputValue = ((9 / 5) * value) + 32;
+                document.getElementById('output-').value = outputValue;
+            }
+        }
+        catch(err){
+            window.alert(err+" -- "+err.name);
+        }
+
+    }
+</script>
+</body>
+</html>
